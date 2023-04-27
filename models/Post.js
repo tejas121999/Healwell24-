@@ -10,6 +10,8 @@ module.exports = (sequelize, DataTypes) => {
         }
     }
 
+    // test
+
     Post.init({
         Author: {
             type: DataTypes.INTEGER,
