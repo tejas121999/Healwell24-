@@ -1,6 +1,7 @@
 const { Post } = require('../models')
 const model = require('../models');
 
+// this api is used to get all publish post 
 exports.getAllPost = async (req, res) => {
     try {
         var getPost = await Post.findAndCountAll({
@@ -40,6 +41,7 @@ exports.getAllPost = async (req, res) => {
     }
 }
 
+// this api is used to get all post poste by other this is only for other
 exports.getAuthorsPost = async (req, res) => {
     try {
         var getPost = await Post.findAndCountAll({
@@ -80,7 +82,7 @@ exports.getAuthorsPost = async (req, res) => {
     }
 }
 
-
+// to add the post 
 exports.addPost = async (req, res) => {
     try {
         const { post } = req.body
@@ -103,6 +105,7 @@ exports.addPost = async (req, res) => {
     }
 }
 
+// to update the post
 exports.updatePost = async (req, res) => {
     try {
         const { post } = req.body
@@ -126,6 +129,7 @@ exports.updatePost = async (req, res) => {
     }
 }
 
+// to delete the post
 exports.deletePost = async (req, res) => {
     try {
         const { post_id } = req.body
@@ -156,6 +160,7 @@ exports.deletePost = async (req, res) => {
     }
 }
 
+// get the post by id
 exports.getPostById = async (req, res) => {
     try {
         const { post_id } = req.body
@@ -195,6 +200,8 @@ exports.getPostById = async (req, res) => {
         })
     }
 }
+
+// publish the post and unpublish the post
 
 exports.publishPost = async (req, res) => {
     try {
