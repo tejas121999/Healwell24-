@@ -2,42 +2,48 @@ const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
 const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'development';
+// const env = process.env.NODE_ENV || 'development';
 // eslint-disable-next-line import/no-dynamic-require
-const config = require('../config/config');
-const db = {};
+// const config = require('../config/config');
+require('dotenv').config()
 
+const db = {};
 let sequelize;
-// if (config.use_env_variable) {
-//     sequelize = new Sequelize(process.env[config.use_env_variable], config);
-// } else {
-sequelize = new Sequelize(config.database, config.user, config.password, {
-    database: "test_db",
-    username: "root",
-    host: "localhost",
+// by using Sequelize here we connect db to node.js  
+sequelize = new Sequelize({
+    database: "my-db",
+    username: "admin",
+    host: "database-1.clbcu7ecdzac.ap-south-1.rds.amazonaws.com",
     dialect: "mysql",
     port: "3306",
-    password: "root",
-});
-console.log("connection with db")
-// }
+    password: "tbDJzw7pATGYH5Qo0vQi",
+})
+if (sequelize) {
+    console.log("connection with db")
+} else {
+    console.log("can't connect with db")
+}
 
+
+
+// here we manage file inside models folder 
 fs.readdirSync(__dirname)
     .filter((file) => {
         return file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.js';
     })
     .forEach((file) => {
-        // eslint-disable-next-line global-require,import/no-dynamic-require
         const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
+        console.log(model)
         db[model.name] = model;
     });
+
+// here we check join of table
 Object.keys(db).forEach((modelName) => {
+    // console.log(db, modelName)
     if (db[modelName].associate) {
         db[modelName].associate(db);
     }
 });
 
 db.sequelize = sequelize;
-db.Sequelize = Sequelize;
-
 module.exports = db;
