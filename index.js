@@ -21,7 +21,7 @@ sequelize.sync({ force: true })
 app.use(bodyParser.json())
 app.use('/api', routes)
 app.get('/get', async (req, res) => {
-    return res.status(200).json({ "message": "working" });
+    return res.status(200).json({ "message": "working fine" });
 })
 // app.use(File)
 
